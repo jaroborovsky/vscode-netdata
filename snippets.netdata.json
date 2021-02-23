@@ -1,0 +1,169 @@
+{
+  "FUNCTIONblock": {
+    "prefix": ["%FUNCTION"],
+    "body": ["%FUNCTION(${1|DTW_SQL,DTW_REXX|}) ${2:name}(${3:parameters}) {", "\t$0", "%}"],
+    "description": "Function block"
+  },
+  "HTMLblock": {
+    "prefix": ["%HTML"],
+    "body": ["%HTML(${1:name}){", "\t$0", "%}"],
+    "description": "The HTML block is an entry point into the macro."
+  },
+  "MacroFUNCTIONblock": {
+    "prefix": ["%MACRO_FUNCTION"],
+    "body": ["%MACRO_FUNCTION ${1:name}(${2:parameters}) {", "\t$0", "%}"],
+    "description": "Defines a subroutine that can be invoked from the Net.Data macro."
+  },
+  "REPORT": {
+    "prefix": ["%REPORT"],
+    "body": ["%REPORT {", "\t$0", "\t%ROW {", "\t%}", "%}"],
+    "description": "Formats output from a function call."
+  },
+  "For_Loop_while": {
+    "prefix": ["for", "while"],
+    "body": ["%WHILE (${2:element} == \"${1:value}\") {", "\t$0", "%}"],
+    "description": "For Loop"
+  },
+  "if": {
+    "prefix": "%if",
+    "body": ["%IF (${2:element} == \"${1:value}\")", "\t$0", "%ELSE", "%ENDIF"],
+    "description": "net.data %IF"
+  },
+  "ADD": {
+    "prefix": ["@DTW_ADD"],
+    "body": ["@DTW_ADD(${1:number1}, ${2:number2}, ${3:result})"],
+    "description": "Adds two numbers."
+  },
+  "rADD": {
+    "prefix": ["@DTW_rADD"],
+    "body": ["@DTW_rADD(${1:number1}, ${2:number2})"],
+    "description": "Adds two numbers."
+  },
+  "DIVIDE": {
+    "prefix": ["@DTW_DIVIDE"],
+    "body": ["@DTW_DIVIDE(${1:number1}, ${2:number2}, ${3:precision+}, ${4:result})"],
+    "description": "Divides one number by the other. The default precision is 9."
+  },
+  "rDIVIDE": {
+    "prefix": ["@DTW_rDIVIDE"],
+    "body": ["@DTW_rDIVIDE(${1:number1}, ${2:number2}, ${3:precision+})"],
+    "description": "Divides one number by the other. The default precision is 9."
+  },
+  "DIVREM": {
+    "prefix": ["@DTW_DIVREM"],
+    "body": ["@DTW_DIVREM(${1:number1}, ${2:number2}, ${3:precision+}, ${4:result})"],
+    "description": "Divides one number by the other and returns the remainder. The default precision is 9."
+  },
+  "rDIVREM": {
+    "prefix": ["@DTW_rDIVREM"],
+    "body": ["@DTW_rDIVREM(${1:number1}, ${2:number2}, ${3:precision+})"],
+    "description": "Divides one number by the other and returns the remainder. The default precision is 9."
+  },
+  "INTDIV": {
+    "prefix": ["@DTW_INTDIV"],
+    "body": ["@DTW_INTDIV(${1:number1}, ${2:number2}, ${3:precision+}, ${4:result})"],
+    "description": "Divides one number by the other and returns the integer part of the result. The default precision is 9."
+  },
+  "rINTDIV": {
+    "prefix": ["@DTW_rINTDIV"],
+    "body": ["@DTW_rINTDIV(${1:number1}, ${2:number2}, ${3:precision+})"],
+    "description": "Divides one number by the other and returns the integer part of the result. The default precision is 9."
+  },
+  "MULTIPLY": {
+    "prefix": ["@DTW_MULTIPLY"],
+    "body": ["@DTW_MULTIPLY(${1:number1}, ${2:number2}, ${3:precision+}, ${4:result})"],
+    "description": "Multiplies two numbers. The default precision is 9."
+  },
+  "rMULTIPLY": {
+    "prefix": ["@DTW_rULTIPLY"],
+    "body": ["@DTW_rMULTIPLY(${1:number1}, ${2:number2}, ${3:precision+})"],
+    "description": "Multiplies two numbers. The default precision is 9."
+  },
+  "SUBTRACT": {
+    "prefix": ["@DTW_SUBTRACT"],
+    "body": ["@DTW_SUBTRACT(${1:number1}, ${2:number2}, ${3:precision+}, ${4:result})"],
+    "description": "Subtracts one number from the other number. The default precision is 9."
+  },
+  "rSUBTRACT": {
+    "prefix": ["@DTW_rSUBTRACT"],
+    "body": ["@DTW_rSUBTRACT(${1:number1}, ${2:number2}, ${3:precision+})"],
+    "description": "Subtracts one number from the other number. The default precision is 9."
+  },
+  "ASSIGN": {
+    "prefix": ["@DTW_ASSIGN"],
+    "body": ["@DTW_ASSIGN(${1:stringOut}, \"${2:stringIn}\")"],
+    "description": "Assigns a value to a variable."
+  },
+  "CONCAT": {
+    "prefix": ["@DTW_CONCAT"],
+    "body": ["@DTW_CONCAT(${1:stringIn1}, ${2:stringIn2}, ${3:stringOut})"],
+    "description": "Concatenates two strings."
+  },
+  "rCONCAT": {
+    "prefix": ["@DTW_rCONCAT"],
+    "body": ["@DTW_rCONCAT(${1:stringIn1}, ${2:stringIn2})"],
+    "description": "Concatenates two strings."
+  },
+  "LENGTH": {
+    "prefix": ["@DTW_LENGTH"],
+    "body": ["@DTW_LENGTH(${1:stringIn}, ${2:length})"],
+    "description": "Returns the length of a string."
+  },
+  "rLENGTH": {
+    "prefix": ["@DTW_rLENGTH"],
+    "body": ["@DTW_rLENGTH(${1:stringIn1})"],
+    "description": "Returns the length of a string."
+  },
+  "PAD": {
+    "prefix": ["@DTW_PAD"],
+    "body": ["@DTW_PAD(\"${1|L,R|}\", ${2:var}, ${3:length}, ${4:padValue}, ${5:result})"],
+    "description": "Pads a string with a specified character."
+  },
+  "rPAD": {
+    "prefix": ["@DTW_rPAD"],
+    "body": ["@DTW_rPAD(\"${1|L,R|}\", ${2:var}, ${3:length}, ${4:padValue})"],
+    "description": "Pads a string with a specified character."
+  },
+  "POS": {
+    "prefix": ["@DTW_POS"],
+    "body": ["@DTW_POS(\"${1:searchFor}\", ${2:stringIn}, \"${3:fromPosition+}\", ${4:nOut})"],
+    "description": "Returns the position of the first occurrence of a string in another string, using a forward search pattern."
+  },
+  "rPOS": {
+    "prefix": ["@DTW_rPOS"],
+    "body": ["@DTW_rPOS(\"${1:searchFor}\", ${2:stringIn}, \"${3:fromPosition+}\")"],
+    "description": "Returns the position of the first occurrence of a string in another string, using a forward search pattern."
+  },
+  "REPLACE": {
+    "prefix": ["@DTW_REPLACE"],
+    "body": [
+      "@DTW_REPLACE(${1:stringIn}, \"${2:search}\", \"${3:replaceTo}\", ${4:fromPos+}, ${5|A,F|}, ${6:stringOut})"
+    ],
+    "description": "Replaces characters in a string."
+  },
+  "rREPLACE": {
+    "prefix": ["@DTW_rREPLACE"],
+    "body": ["@DTW_REPLACE(${1:stringIn}, \"${2:search}\", \"${3:replaceTo}\", ${4:fromPos+}, ${5|A,F|})"],
+    "description": "Replaces characters in a string."
+  },
+  "STRIP": {
+    "prefix": ["@DTW_STRIP", "TRIM"],
+    "body": ["@DTW_STRIP(${1:stringIn},  \"${2|B,L,T|}\", ${3:stringOut})"],
+    "description": "Removes L-leading blanks, T-trailing blanks, or B-both from a string."
+  },
+  "rSTRIP": {
+    "prefix": ["@DTW_rSTRIP", "TRIM"],
+    "body": ["@DTW_rSTRIP(${1:stringIn}, \"${2|B,L,T|}\")"],
+    "description": "Removes L-leading blanks, T-trailing blanks, or B-both from a string."
+  },
+  "SUBSTR": {
+    "prefix": ["@DTW_SUBSTR"],
+    "body": ["@DTW_SUBSTR(${1:stringIn},  \"${2:fromPos+}\", \"${3:length}\", \"${4:padChar+}\", ${5:stringOut})"],
+    "description": "Returns a substring of a string, with optional pad characters."
+  },
+  "rSUBSTR": {
+    "prefix": ["@DTW_rSUBSTR"],
+    "body": ["@DTW_rSUBSTR(${1:stringIn},  \"${2:fromPos+}\", \"${3:length}\")"],
+    "description": "Returns a substring of a string, with optional pad characters."
+  }
+}

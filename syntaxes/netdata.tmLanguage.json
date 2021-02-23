@@ -1,0 +1,416 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "netdata",
+  "foldingStartMarker": "{\\s*$",
+  "foldingStopMarker": "%}",
+  "patterns": [
+    { "include": "#comment-block" },
+    { "include": "#define-statement" },
+    { "include": "#define-block" },
+    { "include": "#function-block" },
+    { "include": "#if-block" },
+    { "include": "#macro-function-block" },
+    { "include": "#include-statement" },
+    { "include": "#message-block" },
+    { "include": "#HTML-block" },
+    { "include": "source.html" },
+    { "include": "#strings" }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.source.netdata",
+          "match": "%(?i)\\b(if|elif|else|endif|while|for|return|list|include|list|continue|table)\\b"
+        },
+        {
+          "name": "keyword.control.dtw.netdata",
+          "match": "(?i)\\b(DTW_)r?\\w+\\b"
+        },
+        {
+          "name": "keyword.other.source.netdata",
+          "match": "(?i)\\b(NLIST|NUM_COLUMNS|ROW_NUM|TOTAL_ROWS|VLIST|RPT_MAX_ROWS|START_ROW_NUM|SHOW_SQL|DTW_REMOVE_WS|RETURN_CODE)\\b"
+        }
+      ]
+    },
+
+    "comment-block": {
+      "patterns": [
+        {
+          "begin": "%{",
+          "captures": {
+            "0": {
+              "name": "punctuation.definition.comment.block.source.netdata"
+            }
+          },
+          "end": "%}",
+          "name": "comment.block.source.netdata"
+        },
+        {
+          "begin": "//",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.source.cs"
+            }
+          },
+          "end": "$\\n?",
+          "name": "comment.line.double-slash.source.cs"
+        }
+      ]
+    },
+    "message-block": {
+      "begin": "(%)(?i)\\b(message)\\s*({)",
+      "name": "message.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "storage.type.function.netdata" },
+        "2": { "name": "storage.type.function.netdata" },
+        "3": { "name": "punctuation.definition.block.netdata" }
+      },
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#keywords" },
+        { "include": "#function-call" },
+        { "include": "#message-text-spec-block" }
+      ]
+    },
+    "message-text-spec-block": {
+      "begin": "({)",
+      "name": "textspec.message.netdata",
+      "end": "%}",
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#keywords" },
+        { "include": "#function-call" }
+      ]
+    },
+    "report-block": {
+      "begin": "(%)(?i)\\b(report)\\s*({)",
+      "name": "report.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.report.block.netdata" },
+        "2": { "name": "keyword.control.report.block.netdata" },
+        "3": { "name": "punctuation.definition.block.netdata" }
+      },
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "keyword.control.report.block.netdata" } },
+      "patterns": [
+        { "include": "source.html" },
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#if-block" },
+        { "include": "#keywords" },
+        { "include": "#variable-reference" },
+        { "include": "#function-call" },
+        { "include": "#row-block" }
+      ]
+    },
+    "row-block": {
+      "begin": "(%)(?i)\\b(row)\\s*({)",
+      "name": "row.block.netdata",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.tag.row.block.netdata" },
+        "2": { "name": "keyword.control.row.block.netdata" },
+        "3": { "name": "punctuation.definition.block.netdata" }
+      },
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "punctuation.definition.tag.block.netdata" } },
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#if-block" },
+        { "include": "#keywords" },
+        { "include": "#function-call" },
+        { "include": "#variable-reference" }
+      ]
+    },
+    "inline-statement-block": {
+      "begin": "xxxunusedxxxxx(?i)\\b(select)\\s*",
+      "name": "inlinestement.block.source.netdata",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.function.netdata"
+        }
+      },
+
+      "patterns": [{ "include": "#define-entry" }]
+    },
+    "define-statement": {
+      "begin": "(%)(?i)\\b(XXXXneviemjedeneriadokdefine)\\s*",
+      "name": "define.block.source.netdata",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.other.define.netdata"
+        },
+        "2": {
+          "name": "keyword.other.define.netdata"
+        }
+      },
+      "end": "",
+      "patterns": [{ "include": "#define-entry" }]
+    },
+
+    "define-block": {
+      "begin": "(%)(?i)\\b(define)\\s*({)",
+      "name": "define.block.source.netdata",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.define.netdata"
+        },
+        "2": {
+          "name": "keyword.other.define.netdata"
+        },
+        "3": {
+          "name": "punctuation.definition.block.netdata"
+        }
+      },
+      "end": "(%})",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.define.netdata"
+        }
+      },
+      "patterns": [{ "include": "#define-entry" }]
+    },
+
+    "define-entry": {
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#keywords" },
+        { "include": "#variable" }
+      ]
+    },
+    "HTML-block-entry": {
+      "patterns": [
+        { "include": "meta.embedded.block.html" },
+        { "include": "source.html" },
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#variable-reference" },
+        { "include": "#builtin-function-call" },
+        { "include": "#function-call" },
+        { "include": "#keywords" },
+        { "include": "#javascript-block" }
+      ]
+    },
+    "while-block": {
+      "begin": "(%)(?i)\\b(while)\\s+\\((.*)\\)\\s*\\{",
+      "name": "while.source.netdata",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.while.netdata"
+        },
+        "2": {
+          "name": "keyword.control.while.netdata"
+        },
+        "3": {
+          "name": "variable.parameter.while.netdata"
+        }
+      },
+      "end": "%}",
+      "patterns": [
+        { "include": "#comment-block" },
+        { "include": "#include-statement" },
+        { "include": "#report-block" },
+        { "include": "#function-call" },
+        { "include": "#while-block" },
+        { "include": "#keywords" },
+        { "include": "#variable-reference" }
+      ]
+    },
+    "if-block": {
+      "begin": "(?i)(%IF)\\s+\\((.*)\\)",
+      "end": "(?i)(%ENDIF)",
+      "name": "if.block.netdata",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.conditional.netdata" },
+        "2": {
+          "patterns": [
+            { "include": "#operators" },
+            { "include": "#strings" },
+            { "include": "#variable" },
+            { "include": "#function-call" },
+            { "include": "#variable-reference" }
+          ]
+        },
+        "3": { "name": "keyword.control.conditional.netdata" }
+      },
+      "endCaptures": { "1": { "name": "keyword.control.conditional.netdata" } },
+      "patterns": [
+        { "include": "#comment-block" },
+        { "include": "#include-statement" },
+        { "include": "#function-call" },
+        { "include": "#while-block" },
+        { "include": "#elif" },
+        { "include": "#keywords" },
+        { "include": "#variable-reference" }
+      ]
+    },
+    "elif": {
+      "match": "(?i)(%ELIF)\\s+\\((.*)\\)",
+      "name": "elif.block.netdata",
+      "captures": {
+        "1": { "name": "keyword.control.conditional.netdata" },
+        "2": {
+          "patterns": [
+            { "include": "#operators" },
+            { "include": "#strings" },
+            { "include": "#variable" },
+            { "include": "#function-call" },
+            { "include": "#variable-reference" }
+          ]
+        }
+      }
+    },
+    "macro-function-block": {
+      "begin": "(?i)(%macro_function)\\s+(\\w+)\\s?\\((.*)\\)",
+      "name": "macro.function.block.netdata",
+      "beginCaptures": {
+        "1": { "name": "storage.type.function.netdata" },
+        "2": { "name": "entity.name.function.netdata" },
+        "3": { "name": "variable.parameter.function.netdata" }
+      },
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
+      "patterns": [
+        { "include": "#comment-block" },
+        { "include": "#include-statement" },
+        { "include": "#report-block" },
+        { "include": "#function-call" },
+        { "include": "#while-block" },
+        { "include": "#keywords" },
+        { "include": "#variable-reference" }
+      ]
+    },
+    "function-block": {
+      "begin": "(?i)(%function)\\s?\\(?(DTW_SQL|DTW_REXX)?\\)?\\s+(\\w+)\\s?\\((.*)\\)",
+      "name": "function.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "storage.type.function.netdata" },
+        "2": { "name": "variable.parameter.functiontype.netdata" },
+        "3": { "name": "entity.name.function.netdata" },
+        "4": { "name": "variable.parameter.function.netdata" }
+      },
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
+      "patterns": [{ "include": "#function-body-entry" }]
+    },
+    "javascript-block": {
+      "begin": "script",
+      "end": "\\/script",
+      "name": "meta.embedded.block.javascript",
+      "patterns": [{ "include": "source.js" }]
+    },
+
+    "function-body-entry": {
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#comment-block" },
+        { "include": "#variable-reference" },
+        { "include": "#keywords" },
+        { "include": "#inline-statement-block" },
+        { "include": "source.sql" },
+        { "include": "#message-block" },
+        { "include": "#report-block" }
+      ]
+    },
+    "function-call": {
+      "begin": "(@)(\\w+)\\((((\\w|\"(?:[^\"]|\"\")*\"),*,?\\s*)*)",
+      "end": "\\)",
+      "name": "function.call.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.tag.function.call.netdata" },
+        "2": { "name": "entity.name.function.netdata" },
+        "3": {
+          "patterns": [{ "include": "#strings" }, { "include": "#variable" }, { "include": "#variable-reference" }]
+        }
+      }
+    },
+    "builtin-function-call": {
+      "begin": "(@)(DTW_)(\\w+)\\((((\\w|\"(?:[^\"]|\"\")*\"),*,?\\s*)*)",
+      "end": "\\)",
+      "name": "function.call.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "punctuation.function.netdata" },
+        "2": { "name": "support.function.netdata" },
+        "3": { "name": "support.function.netdata" },
+        "4": {
+          "patterns": [{ "include": "#strings" }, { "include": "#variable" }, { "include": "#variable-reference" }]
+        }
+      }
+    },
+    "function-variables": {
+      "patterns": [{ "include": "#strings" }, { "include": "#variable" }, { "include": "#variable-reference" }]
+    },
+    "include-statement": {
+      "begin": "(?i)(%INCLUDE)\\s+\"((?:[^\"]|\"\")*)",
+      "end": "\"",
+      "name": "function.call.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.netdata" },
+        "2": { "name": "string.quoted.double.netdata" }
+      }
+    },
+
+    "HTML-block": {
+      "begin": "(?i)(%html)\\s?(\\()([A-Za-z_][A-Za-z0-9_#\\.]*)(\\))",
+      "name": "html.block.source.netdata",
+      "beginCaptures": {
+        "1": { "name": "storage.type.html.netdata" },
+        "2": { "name": "punctuation.definition.htmlname.begin.netdata" },
+        "3": { "name": "entity.name.type.class.html.netdata" },
+        "4": { "name": "punctuation.definition.htmlname.end.netdata" }
+      },
+      "end": "%}",
+      "patterns": [{ "include": "#HTML-block-entry" }]
+    },
+    "variable": {
+      "patterns": [
+        {
+          "name": "variable.other.netdata",
+          "match": "([A-Za-z_][A-Za-z0-9_#\\.]*)"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.netdata",
+          "match": "(==|!=|<=|>=|&&|\\|\\|)"
+        }
+      ]
+    },
+    "variable-reference": {
+      "name": "variable.reference.netdata",
+      "begin": "(\\$\\()",
+      "end": "\\)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.defintion.tag.variable.reference.netdata" }
+      },
+      "patterns": [
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.netdata",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.netdata",
+          "match": "\\\\."
+        },
+        {
+          "include": "#variable-reference"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.netdata"
+}
