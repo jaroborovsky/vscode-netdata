@@ -14,8 +14,6 @@ This extension works for netdata file. It has the following language features:
 - Go To Definition for %FUNCTION, %MACRO_FUNCTION
 - Outline structure of functions, report and html block
 
-It does not includes an End-to-End test.
-
 ## Structure
 
 ```
@@ -29,6 +27,10 @@ It does not includes an End-to-End test.
     snippets.netdata.json // Snippets.
     language-configuration.json  // Configuration of language
 ```
+
+## Issues
+
+https://github.com/jaroborovsky/vscode-netdata/issues
 
 ## Contribution
 

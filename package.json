@@ -1,13 +1,13 @@
 {
   "name": "netdata",
   "displayName": "Net.Data language ",
-  "description": "Net.Data language",
+  "description": "Provide syntax highlihgting, snippets, basic outline and navigation for Net.Data programming language.",
   "author": "Jaro Boro",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/vscode-extension-samples"
+    "url": "https://github.com/jaroborovsky/vscode-netdata"
   },
   "publisher": "jaroboro",
   "categories": [
@@ -59,7 +59,8 @@
     "compile": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "test": "sh ./scripts/e2e.sh"
+    "test": "sh ./scripts/e2e.sh",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.3",
