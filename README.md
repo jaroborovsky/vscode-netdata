@@ -7,12 +7,26 @@ https://www.ibm.com/support/pages/netdata-ibm-i
 
 This extension works for netdata file. It has the following language features:
 
-- Syntax highlighting
+- Syntax highlighting includes SQL and javascript
 - Snippets for frequently used commands
 - Definition of Net.Data Language
 - Simple Language Client
 - Go To Definition for %FUNCTION, %MACRO_FUNCTION
 - Outline structure of functions, report and html block
+
+### Syntax highlighting
+
+![Syntax highlighting](images/img-syntax.png)
+
+### Go To Definition
+
+You can press F12 on function call or ctrl-click.
+![Go To Definition](images/img-gotodef.gif)
+
+### Outline
+
+Easy navigation to main important block of your code.
+![Outline](images/img-outline.gif)
 
 ## Structure
 
@@ -34,7 +48,8 @@ https://github.com/jaroborovsky/vscode-netdata/issues
 
 ## Contribution
 
-- Run `npm install` in this folder. This installs all necessary npm modules in both the client and server folder
+- Download from github
+- Run `npm install`
 - Open VS Code on this folder.
 - Press Ctrl+Shift+B to compile the client.
 - Switch to the Debug viewlet.
@@ -45,4 +60,4 @@ https://github.com/jaroborovsky/vscode-netdata/issues
 
 ## Publish extension
 
-- vsce package
+- vsce publish

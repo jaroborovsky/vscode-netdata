@@ -1,0 +1,39 @@
+%DEFINE {
+	START_ROW_NUM = "1" %{ starting row number for output table %}
+	RPT_MAX_ROWS = "25" %{ maximum number of rows in the table %}
+	resultTable = %table %{ table to hold query results %}
+%}
+
+%HTML(report) {
+	%{ run the query and save results in a table %}
+	@myQuery(resultTable)
+	%{ build a form to display a page of data %}
+	<form method="POST" action="report">
+	%{ send the table to a REXX function to send the data output %}
+	@displayRows(START_ROW_NUM, submit, resultTable, RPT_MAX_ROWS)
+	%{ pass START_ROW_NUM as a hidden variable to the next invocation %}
+	<input name="START_ROW_NUM" type="hidden" value="$(START_ROW_NUM)" />
+	Chapter 1. Net.Data macro language constructs 7
+	%{ build the next and previous buttons %}
+	%if (submit == "both" || submit == "next_only")
+		<input name="submit" type="submit" value="next" />
+	%endif
+	%if (submit == "both" || submit == "prev_only")
+		<input name="submit" type="submit" value="previous" />
+	%endif
+	</form>
+	<script>
+		let i = 0;
+		console.log('i':i)
+	</script>
+%}
+
+
+%FUNCTION(DTW_SQL) myQuery(resTable) {
+	select a from XYZ where a='something'
+	%REPORT {
+		
+		%ROW {
+		%}
+	%}
+%}
