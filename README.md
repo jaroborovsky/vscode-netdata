@@ -16,17 +16,17 @@ This extension works for netdata file. It has the following language features:
 
 ### Syntax highlighting
 
-![Syntax highlighting](images/img-syntax.png)
+![Syntax highlighting](https://github.com/jaroborovsky/vscode-netdata/raw/main/images/img-syntax.png)
 
 ### Go To Definition
 
 You can press F12 on function call or ctrl-click.
-![Go To Definition](images/img-gotodef.gif)
+![Go To Definition](https://github.com/jaroborovsky/vscode-netdata/raw/main/images/img-gotodef.gif)
 
 ### Outline
 
 Easy navigation to main important block of your code.
-![Outline](images/img-outline.gif)
+![Outline](https://github.com/jaroborovsky/vscode-netdata/raw/main/images/img-outline.gif)
 
 ## Structure
 
