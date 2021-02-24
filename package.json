@@ -61,7 +61,8 @@
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "test": "sh ./scripts/e2e.sh",
-    "package": "vsce package"
+    "package": "vsce package",
+    "publish": "vsce publish patch"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.3",
