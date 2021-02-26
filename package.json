@@ -4,7 +4,7 @@
   "description": "Provide syntax highlihgting, snippets, basic outline and navigation for Net.Data programming language.",
   "author": "Jaro Boro",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaroborovsky/vscode-netdata"
