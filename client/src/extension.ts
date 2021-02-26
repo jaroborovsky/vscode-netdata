@@ -247,7 +247,17 @@ class NetdataDefinitionProvider implements vscode.DefinitionProvider {
                             break;
                         }
                     }
-                }            
+                } else {
+                    regexpMoj=/^\s*(%DEFINE)?\s*(\w*)\s*=[^=]/i
+                    if (regexpMoj.test(trimLine) ) {
+                        regValue=regexpMoj.exec(trimLine);
+                        objectName =  regValue[2];
+                        if (objectName ==  possibleWord ){
+                            myRange = line.range
+                            break;
+                        }
+                    }
+                }
             }
 
             let location;
