@@ -300,8 +300,8 @@
       "patterns": [{ "include": "#function-body-entry" }]
     },
     "javascript-block": {
-      "begin": "script",
-      "end": "\\/script",
+      "begin": "<script",
+      "end": "<\\/script",
       "name": "meta.embedded.block.javascript",
       "patterns": [{ "include": "source.js" }]
     },
