@@ -222,7 +222,7 @@
       ]
     },
     "if-block": {
-      "begin": "(?i)(%IF)\\s+\\((.*)\\)",
+      "begin": "(?i)(%IF)\\s+\\(([\\w<>!=\",_\\s]*)\\)",
       "end": "(?i)(%ENDIF)",
       "name": "if.block.netdata",
       "beginCaptures": {
@@ -319,7 +319,7 @@
     },
     "function-call": {
       "begin": "(@)(\\w+)\\((\\s*([A-Za-z,_\\s]|\"(\\s|\\w|\\$|\\(|\\))*\")*)\\s*",
-      "end": "\\)",
+      "end": "\\)(?=([^\"]*\"[^\"]*\")*[^\"]*$)",
       "name": "function.call.block.source.netdata",
       "beginCaptures": {
         "1": { "name": "punctuation.definition.tag.function.call.netdata" },
@@ -398,17 +398,10 @@
     },
     "strings": {
       "name": "string.quoted.double.netdata",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
-        {
-          "name": "constant.character.escape.netdata",
-          "match": "\\\\."
-        },
-        {
-          "include": "#variable-reference"
-        }
-      ]
+      "match": "((?<![\\\\])\")((?:.(?!(?<![\\\\])\\1))*.?)\\1",
+      "captures": {
+        "2": { "patterns": [{ "include": "#variable-reference" }] }
+      }
     }
   },
   "scopeName": "source.netdata"
