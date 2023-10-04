@@ -135,7 +135,7 @@
           "name": "storage.type.function.netdata"
         }
       },
-
+      "end": "",
       "patterns": [{ "include": "#define-entry" }]
     },
     "define-statement": {
@@ -222,12 +222,13 @@
       ]
     },
     "if-block": {
-      "begin": "(?i)(%IF)\\s+\\(([\\w<>!=\",_\\s]*)\\)",
+      "begin": "(?i)(%IF)\\s+\\((.*)\\)",
       "end": "(?i)(%ENDIF)",
       "name": "if.block.netdata",
       "beginCaptures": {
-        "1": { "name": "keyword.control.conditional.netdata" },
+        "1": { "name": "keyword.control.conditional.if.netdata" },
         "2": {
+          "name": "if.block.condition.list.netdata",
           "patterns": [
             { "include": "#operators" },
             { "include": "#strings" },
@@ -238,9 +239,10 @@
         },
         "3": { "name": "keyword.control.conditional.netdata" }
       },
-      "endCaptures": { "1": { "name": "keyword.control.conditional.netdata" } },
+      "endCaptures": { "1": { "name": "keyword.control.conditional.end.netdata" } },
       "patterns": [
         { "include": "#comment-block" },
+        { "include": "#if-block" },
         { "include": "#include-statement" },
         { "include": "#function-call" },
         { "include": "#while-block" },
@@ -318,16 +320,25 @@
       ]
     },
     "function-call": {
-      "begin": "(@)(\\w+)\\((\\s*([A-Za-z,_\\s]|\"(\\s|\\w|\\$|\\(|\\))*\")*)\\s*",
+      "begin": "(@)(\\w+)(\\()",
       "end": "\\)(?=([^\"]*\"[^\"]*\")*[^\"]*$)",
       "name": "function.call.block.source.netdata",
       "beginCaptures": {
         "1": { "name": "punctuation.definition.tag.function.call.netdata" },
         "2": { "name": "entity.name.function.netdata" },
-        "3": {
-          "patterns": [{ "include": "#strings" }, { "include": "#variable" }, { "include": "#variable-reference" }]
+        "3": { "name": "punctuation.definition.arguments.begin.bracket.netdata" }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.arguments.end.bracket.netdata"
         }
-      }
+      },
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#variable" },
+        { "include": "#variable-reference" },
+        { "include": "#function-call" }
+      ]
     },
     "builtin-function-call-unused": {
       "begin": "(@)(DTW_)(\\w+)\\((((\\w|\"(?:[^\"]|\"\")*\"),*,?\\s*)*)",
@@ -398,9 +409,9 @@
     },
     "strings": {
       "name": "string.quoted.double.netdata",
-      "match": "((?<![\\\\])\")((?:.(?!(?<![\\\\])\\1))*.?)\\1",
+      "match": "\"([^\"]|\\\"\")*\"",
       "captures": {
-        "2": { "patterns": [{ "include": "#variable-reference" }] }
+        "1": { "patterns": [{ "include": "#variable-reference" }] }
       }
     }
   },
