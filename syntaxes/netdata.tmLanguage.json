@@ -11,6 +11,7 @@
     { "include": "#if-block" },
     { "include": "#macro-function-block" },
     { "include": "#include-statement" },
+    { "include": "#function-call" },
     { "include": "#message-block" },
     { "include": "#HTML-block" },
     { "include": "source.html" },
@@ -62,12 +63,12 @@
       "begin": "(%)(?i)\\b(message)\\s*({)",
       "name": "message.block.source.netdata",
       "beginCaptures": {
-        "1": { "name": "storage.type.function.netdata" },
-        "2": { "name": "storage.type.function.netdata" },
+        "1": { "name": "keyword.control.message.netdata" },
+        "2": { "name": "keyword.control.less.message.netdata" },
         "3": { "name": "punctuation.definition.block.netdata" }
       },
       "end": "(%})",
-      "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
+      "endCaptures": { "1": { "name": "keyword.control.message.netdata" } },
       "patterns": [
         { "include": "#strings" },
         { "include": "#comment-block" },
@@ -98,8 +99,6 @@
       "end": "(%})",
       "endCaptures": { "1": { "name": "keyword.control.report.block.netdata" } },
       "patterns": [
-        { "include": "source.html" },
-        { "include": "#strings" },
         { "include": "#comment-block" },
         { "include": "#if-block" },
         { "include": "#keywords" },
@@ -119,7 +118,6 @@
       "end": "(%})",
       "endCaptures": { "1": { "name": "punctuation.definition.tag.block.netdata" } },
       "patterns": [
-        { "include": "#strings" },
         { "include": "#comment-block" },
         { "include": "#if-block" },
         { "include": "#keywords" },
@@ -139,18 +137,15 @@
       "patterns": [{ "include": "#define-entry" }]
     },
     "define-statement": {
-      "begin": "(%)(?i)\\b(XXXXneviemjedeneriadokdefine)\\s*",
-      "name": "define.block.source.netdata",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.other.define.netdata"
-        },
-        "2": {
-          "name": "keyword.other.define.netdata"
+      "match": "(%)(?i)\\b(DEFINE)(?!\\s*{)(.*)\\s",
+      "name": "define.statement.source.netdata",
+      "captures": {
+        "1": { "name": "punctuation.definition.tag.define.netdata" },
+        "2": { "name": "keyword.other.define.netdata" },
+        "3": {
+          "patterns": [{ "include": "#define-entry" }]
         }
-      },
-      "end": "",
-      "patterns": [{ "include": "#define-entry" }]
+      }
     },
 
     "define-block": {
@@ -184,18 +179,6 @@
         { "include": "#variable" }
       ]
     },
-    "HTML-block-entry": {
-      "patterns": [
-        { "include": "meta.embedded.block.html" },
-        { "include": "source.html" },
-        { "include": "#strings" },
-        { "include": "#comment-block" },
-        { "include": "#variable-reference" },
-        { "include": "#function-call" },
-        { "include": "#keywords" },
-        { "include": "#javascript-block" }
-      ]
-    },
     "while-block": {
       "begin": "(%)(?i)\\b(while)\\s+\\((.*)\\)\\s*\\{",
       "name": "while.source.netdata",
@@ -222,7 +205,7 @@
       ]
     },
     "if-block": {
-      "begin": "(?i)(%IF)\\s+\\((.*)\\)",
+      "begin": "(?i)(%IF)\\s+\\((([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*)\\)\\s*",
       "end": "(?i)(%ENDIF)",
       "name": "if.block.netdata",
       "beginCaptures": {
@@ -231,10 +214,11 @@
           "name": "if.block.condition.list.netdata",
           "patterns": [
             { "include": "#operators" },
+            { "include": "#comment-block" },
             { "include": "#strings" },
             { "include": "#variable" },
-            { "include": "#function-call" },
-            { "include": "#variable-reference" }
+            { "include": "#variable-reference" },
+            { "include": "#function-call" }
           ]
         },
         "3": { "name": "keyword.control.conditional.netdata" }
@@ -268,18 +252,19 @@
       }
     },
     "macro-function-block": {
-      "begin": "(?i)(%macro_function)\\s+(\\w+)\\s?\\((.*)\\)",
+      "begin": "(?i)(%macro_function)\\s+(\\w+)\\s?",
       "name": "macro.function.block.netdata",
       "beginCaptures": {
         "1": { "name": "storage.type.function.netdata" },
-        "2": { "name": "entity.name.function.netdata" },
-        "3": { "name": "variable.parameter.function.netdata" }
+        "2": { "name": "entity.name.type.class.function.netdata" }
       },
       "end": "(%})",
       "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
       "patterns": [
+        { "include": "#function-parm-passing-spec" },
         { "include": "#comment-block" },
         { "include": "#include-statement" },
+        { "include": "#if-block" },
         { "include": "#report-block" },
         { "include": "#function-call" },
         { "include": "#while-block" },
@@ -287,29 +272,60 @@
         { "include": "#variable-reference" }
       ]
     },
+
+    "function-parm-passing-spec": {
+      "begin": "(?<!\\s)(\\()(?!\\\")",
+      "name": "macro.function.parameters.netdata",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.parameters.netdata" }
+      },
+      "end": "(\\))",
+      "endCaptures": { "1": { "name": "punctuation.definition.parameters.netdata" } },
+      "patterns": [
+        {
+          "match": "(?i)(IN|OUT|INOUT)",
+          "name": "keyword.operator.netdata"
+        },
+        {
+          "match": "(?i)(CHAR\\(\\d+\\)|DEC\\(\\d+,\\s*\\d+\\))",
+          "name": "meta.function.parameter.type.netdata"
+        },
+        { "include": "#variable" }
+      ]
+    },
     "function-block": {
-      "begin": "(?i)(%function)\\s?\\(?(DTW_SQL|DTW_REXX)?\\)?\\s+(\\w+)\\s?\\((.*)\\)",
+      "begin": "(?i)(%function)\\s?\\(?(DTW_SQL|DTW_REXX|DTW_DIRECTCALL)?\\)?\\s+(\\w+)\\s?",
       "name": "function.block.source.netdata",
       "beginCaptures": {
         "1": { "name": "storage.type.function.netdata" },
-        "2": { "name": "variable.parameter.functiontype.netdata" },
-        "3": { "name": "entity.name.function.netdata" },
-        "4": { "name": "variable.parameter.function.netdata" }
+        "2": { "name": "entity.name.parameter.functiontype.netdata" },
+        "3": { "name": "entity.name.type.class.function.netdata" }
       },
       "end": "(%})",
       "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
-      "patterns": [{ "include": "#function-body-entry" }]
+      "patterns": [{ "include": "#function-body-entry" }, { "include": "#function-parm-passing-spec" }]
     },
     "javascript-block": {
-      "begin": "<script",
+      "begin": "XXX<script",
       "end": "<\\/script",
       "name": "meta.embedded.block.javascript",
       "patterns": [{ "include": "source.js" }]
     },
+    "css-style-block": {
+      "begin": "(?i)<style>",
+      "end": "(?i)</style>",
+      "name": "meta.embedded.block.css",
+      "patterns": [{ "include": "source.css" }]
+    },
+    "html-style-block": {
+      "begin": "(?i)<notusedtd>",
+      "end": "(?i)</notusedtd>",
+      "name": "meta.embedded.block.html",
+      "patterns": [{ "include": "text.html.basic" }, { "include": "#variable-reference" }]
+    },
 
     "function-body-entry": {
       "patterns": [
-        { "include": "#strings" },
         { "include": "#comment-block" },
         { "include": "#variable-reference" },
         { "include": "#keywords" },
@@ -321,7 +337,7 @@
     },
     "function-call": {
       "begin": "(@)(\\w+)(\\()",
-      "end": "\\)(?=([^\"]*\"[^\"]*\")*[^\"]*$)",
+      "end": "\\)",
       "name": "function.call.block.source.netdata",
       "beginCaptures": {
         "1": { "name": "punctuation.definition.tag.function.call.netdata" },
@@ -365,6 +381,19 @@
         "2": { "name": "string.quoted.double.netdata" }
       }
     },
+    "HTML-block-entry": {
+      "name": "HTML.block.entry.netdata",
+      "patterns": [
+        { "include": "#comment-block" },
+        { "include": "#if-block" },
+        { "include": "#variable-reference" },
+        { "include": "#function-call" },
+        { "include": "#keywords" },
+        { "include": "#javascript-block" },
+        { "include": "#css-style-block" },
+        { "include": "#html-style-block" }
+      ]
+    },
 
     "HTML-block": {
       "begin": "(?i)(%html)\\s?(\\()([A-Za-z_][A-Za-z0-9_#\\.]*)(\\))",
@@ -375,7 +404,8 @@
         "3": { "name": "entity.name.type.class.html.netdata" },
         "4": { "name": "punctuation.definition.htmlname.end.netdata" }
       },
-      "end": "%}",
+      "end": "(%})",
+      "endCaptures": { "1": { "name": "storage.type.function.netdata" } },
       "patterns": [{ "include": "#HTML-block-entry" }]
     },
     "variable": {
@@ -409,9 +439,10 @@
     },
     "strings": {
       "name": "string.quoted.double.netdata",
-      "match": "\"([^\"]|\\\"\")*\"",
+      "match": "(\")(([^\"]|\\\"\")*)\"",
       "captures": {
-        "1": { "patterns": [{ "include": "#variable-reference" }] }
+        "1": { "name": "punctuation.start.string.quoted.double.netdata" },
+        "2": { "patterns": [{ "include": "#variable-reference" }, { "include": "#function-call" }] }
       }
     }
   },
