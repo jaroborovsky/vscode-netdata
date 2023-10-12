@@ -1,3 +1,7 @@
+[![](https://vsmarketplacebadges.dev/version-short/jaroboro.netdata.svg)](https://marketplace.visualstudio.com/items?itemName=jaroboro.netdata)
+[![](https://vsmarketplacebadges.dev/downloads-short/jaroboro.netdata.svg)](https://marketplace.visualstudio.com/items?itemName=jaroboro.netdata)
+[![](https://vsmarketplacebadges.dev/rating-short/jaroboro.netdata.svg)](https://marketplace.visualstudio.com/items?itemName=jaroboro.netdata)
+
 # Net.Data for Visual Studio Code
 
 An extension for VS Code which provides support for the Net.Data language. Net.Data is a server-side scripting language that extends web servers by enabling the dynamic generation of web pages using data from a variety of data sources. The data sources can include relational and non-relational database management systems such as DB2, DRDA-enabled databases, flat-file data, and native applications written in programming languages such as RPG, Cobol, Java, C, C++, and REXX.
@@ -11,7 +15,8 @@ This extension works for netdata file. It has the following language features:
 - Snippets for frequently used commands
 - Definition of Net.Data Language
 - Simple Language Client
-- Go To Definition for %FUNCTION, %MACRO_FUNCTION
+- Go To Definition for %FUNCTION, %MACRO_FUNCTION, variables in %DEFINE
+- Go To References, Peak References
 - Outline structure of functions, report and html block
 
 ### Syntax highlighting
@@ -23,10 +28,20 @@ This extension works for netdata file. It has the following language features:
 You can press F12 on function call or ctrl-click.
 ![Go To Definition](https://github.com/jaroborovsky/vscode-netdata/raw/main/images/img-gotodef.gif)
 
+### Go To references in current file
+
+You can press Shift-F12 or Peek References.
+
+
 ### Outline
 
 Easy navigation to main important block of your code.
 ![Outline](https://github.com/jaroborovsky/vscode-netdata/raw/main/images/img-outline.gif)
+
+### Snippets
+
+More than 30 snippets
+
 
 ## Structure
 
