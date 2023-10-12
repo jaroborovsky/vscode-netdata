@@ -21,11 +21,8 @@
     "AS400"
   ],
   "engines": {
-    "vscode": "^1.43.0"
+    "vscode": "^1.75.0"
   },
-  "activationEvents": [
-    "onLanguage:netdata"
-  ],
   "main": "./client/out/extension",
   "contributes": {
     "languages": [
