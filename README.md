@@ -7,6 +7,14 @@
 An extension for VS Code which provides support for the Net.Data language. Net.Data is a server-side scripting language that extends web servers by enabling the dynamic generation of web pages using data from a variety of data sources. The data sources can include relational and non-relational database management systems such as DB2, DRDA-enabled databases, flat-file data, and native applications written in programming languages such as RPG, Cobol, Java, C, C++, and REXX.
 https://www.ibm.com/support/pages/netdata-ibm-i
 
+# What is new in 1.0.9
+
+- Go To Definition for V_columnName variables in SQL block
+
+# What is new in 1.0.8
+
+- Go To References, Peak References
+
 ## Functionality
 
 This extension works for netdata file. It has the following language features:
@@ -32,7 +40,6 @@ You can press F12 on function call or ctrl-click.
 
 You can press Shift-F12 or Peek References.
 
-
 ### Outline
 
 Easy navigation to main important block of your code.
@@ -41,7 +48,6 @@ Easy navigation to main important block of your code.
 ### Snippets
 
 More than 30 snippets
-
 
 ## Structure
 
